@@ -16,22 +16,27 @@ function newPhoto(url) {
         const cards = document.querySelectorAll(".card");
         for (let i = 0; i < cards.length; i++) {
           const cardImage = cards[i].querySelector(".bd-placeholder-img.card-img-top");
+          const cardIdText = cards[i].querySelector(".text-muted");
 
           const nuovoURL = data.photos[i % data.photos.length].src.medium;
+          const photoId = data.photos[i % data.photos.length].id;
 
           if (cardImage) {
             cardImage.src = nuovoURL;
           }
+          if (cardIdText) {
+            cardIdText.innerText = `ID:${photoId}`;
+          }
         }
       } else {
-        console.error("Nessuna immagine disponibile nella risposta API.");
+        console.error("NESSUNA IMMAGINE");
       }
     })
     .catch((error) => console.error("Errore:", error));
 }
 //
-function changeButtonText(button, text) {
-  button.innerText = text;
+function changeText(element, text) {
+  element.innerText = text;
 }
 
 function addClass(element, style) {
@@ -41,7 +46,7 @@ function addClass(element, style) {
 const hideButton = document.querySelectorAll(".btn-group button:nth-child(2)");
 
 hideButton.forEach((button) => {
-  changeButtonText(button, "Hide");
+  changeText(button, "Hide");
   const card = button.closest(".card");
 
   button.onclick = () => {
